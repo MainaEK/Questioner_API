@@ -9,11 +9,11 @@ def get_all_meetups():
     return jsonify({'status' : 201,'data' : meetups,}),201
 
 
-@v1.route('/meetups/<string:topic>', methods=['GET'])
-def get_specific_meetup(topic):
+@v1.route('/meetups/<int:id_>', methods=['GET'])
+def get_specific_meetup(id_):
     val = {}
     for meetup in meetups:
-        if meetup['topic'] == topic:
+        if meetup['id_'] == id_:
             val = {
                 'id_' : meetup['id_'],
                 'createdOn' : meetup['createdOn'],
