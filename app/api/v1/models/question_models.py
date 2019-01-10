@@ -1,29 +1,27 @@
+from datetime import datetime
+from ..utils.generator import generate_id
 
-questions =[ 
-{
-    'id_' : 1,
-    'createdOn' : '26-12-2018',
-    'createdBy' : '123',
-    'meetup' : '321',
-    'title' : 'Python',
-    'body' : 'string to integer',
-    'votes': '10'
-} ,
-{
-    'id_' : 2,
-    'createdOn' : '26-12-2018',
-    'createdBy' : '123',
-    'meetup' : '432',
-    'title' : 'Java',
-    'body' : 'string to integer',
-    'votes': '10'
-} ,
-{
-    'id_' : 3,
-    'createdOn' : '26-12-2018',
-    'createdBy' : '123',
-    'meetup' : '543',
-    'title' : 'Ruby',
-    'body' : 'string to integer',
-    'votes': '10'
-} ]
+questions = []
+
+class Question(object):
+    """ Model class for the question object """
+
+    def __init__(self):
+        self.db = questions
+
+    def save(self, question ={"q_id" : "", "created_on" : datetime.date.today(), "created_by":"", "meetup":"",
+                 "title":"", "body":"", "votes": 0}):
+        """ Function to save new question """
+        super().__init__(q_id = generate_id)
+        self.db.append(question)
+        return self.db
+        
+
+    def fetch_using_id(self, q_id):
+        """ Function to fetch questions by ID """
+        fetched_questions = [question for question in self.db if question['q_id'] == q_id]
+        return fetched_questions[0]
+
+    def all(self):
+        """ Function to fetch all questions """
+        return self.db

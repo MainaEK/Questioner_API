@@ -1,29 +1,27 @@
+from datetime import datetime
+from ..utils.generator import generate_id
 
-meetups =[ 
-{
-    'id_' : 1,
-    'createdOn' : '26-12-2018',
-    'location' : 'Nairobi',
-    'images' : ['http://self.io'],
-    'topic' : 'Python',
-    'happeningOn' : '28-12-2018',
-    'tags': ['coding','python']
-} ,
-{
-    'id_' : 2,
-    'createdOn' : '27-12-2018',
-    'location' : 'Kiambu',
-    'images' : 'http://self.io',
-    'topic' : 'Java',
-    'happeningOn' : '29-12-2018',
-    'tags': ['coding','java']
-} ,
-{
-    'id_' : 3,
-    'createdOn' : '28-12-2018',
-    'location' : 'Nakuru',
-    'images' : 'http://self.io',
-    'topic' : 'Ruby',
-    'happeningOn' : '30-12-2018',
-    'tags': ['coding','ruby']
-} ]
+meetups = []
+
+class Meetup(object):
+    """ Model class for the meetup object """
+
+    def __init__(self):
+        self.db = meetups
+
+    def save(self, meetup ={"m_id" : "", "created_on" : datetime.date.today(), "location":"", "images":[],
+                 "topic":"", "happening_on":"", "tags":[]}):
+        """ Function to save new meetup """
+        super().__init__(m_id = generate_id)
+        self.db.append(meetup)
+        return self.db
+        
+
+    def fetch_using_id(self, m_id):
+        """ Function to fetch meetups by ID """
+        fetched_meetups = [meetup for meetup in self.db if meetup['m_id'] == m_id]
+        return fetched_meetups[0]
+
+    def all(self):
+        """ Function to fetch all meetups """
+        return self.db
