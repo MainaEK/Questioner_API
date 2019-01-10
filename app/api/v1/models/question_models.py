@@ -3,16 +3,16 @@ from ..utils.generator import generate_id
 
 questions = []
 
-class Question(object):
+class QuestionModel(object):
     """ Model class for the question object """
 
     def __init__(self):
         self.db = questions
 
-    def save(self, question ={"q_id" : "", "created_on" : datetime.date.today(), "created_by":"", "meetup":"",
+    def save(self, question ={"q_id" : "", "created_on" : "", "created_by":"", "meetup":"",
                  "title":"", "body":"", "votes": 0}):
         """ Function to save new question """
-        super().__init__(q_id = generate_id)
+        super().__init__(q_id = generate_id, created_on = datetime())
         self.db.append(question)
         return self.db
         
