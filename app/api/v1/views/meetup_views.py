@@ -15,3 +15,22 @@ class MeetupEndpoints():
         meetups = db.get_all()
         result = MeetupSchema(many=True).dump(meetups).data
         return jsonify({'status' : 200 , 'data' : result}),200
+
+    @v1.route('/meetups', methods=['POST'])
+    def create_meetup():
+        """ Function to create meetup """
+        json_data = request.get_json()
+
+        ''' If no data has been provided'''
+        if not json_data:
+            return jsonify({'status': 400, 'error': 'No data provided'}), 400
+
+        '''Checks if request is valid'''
+        data, errors = MeetupSchema().load(json_data)
+        if errors:
+            return jsonify({'status': 400, 'error' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400
+
+        '''Saves the new meetup and returns response'''
+        new_meetup = db.create(data)
+        result = MeetupSchema().dump(new_meetup).data
+        return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': [result]}), 201

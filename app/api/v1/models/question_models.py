@@ -1,4 +1,4 @@
-from datetime import datetime
+'''from datetime import datetime
 from ..utils.generator import generator
 
 questions = []
@@ -24,4 +24,4 @@ class QuestionModel(object):
 
     def all(self):
         """ Function to fetch all questions """
-        return self.db
+        return self.db'''
