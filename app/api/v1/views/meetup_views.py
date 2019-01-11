@@ -34,3 +34,17 @@ class MeetupEndpoints():
         new_meetup = db.create(data)
         result = MeetupSchema().dump(new_meetup).data
         return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': [result]}), 201
+
+    @v1.route('/meetups/<int:m_id>', methods=['GET'])
+    def fetch_meetup(m_id):
+        '''Endpoint to fetch specific meetup '''
+        meetup = db.get_specific_meetup(m_id)
+        
+        '''If meetup doesn't exist''' 
+        if not meetup:
+            return jsonify({'status': 404, 'error': 'Meetup not found'}), 404
+
+        ''' If the meetup exists''' 
+        result = MeetupSchema().dump(meetup).data
+        return jsonify({'status':200, 'data':result}), 200
+            

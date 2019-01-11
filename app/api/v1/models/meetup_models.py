@@ -22,3 +22,8 @@ class MeetupModel():
         data['tags'] = []
         meetups.append(data)
         return data    
+
+    def get_specific_meetup(self,m_id):
+        '''Function using the m_id to check for meetups'''
+        fetch_meetup = [meetup for meetup in meetups if meetup[m_id] == m_id]
+        return fetch_meetup[0]
