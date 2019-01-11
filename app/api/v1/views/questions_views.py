@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Response, json
+'''from flask import Flask, jsonify, request, Response, json
 from ..models.question_models import QuestionModel
 from ...v1 import v1 
 from ..utils.validations import sanitize_input_questions
@@ -15,4 +15,4 @@ class QuestionEndpoints(QuestionModel):
         if not response:
             return jsonify({'status' : 400,'error' : 'Bad Request'}),400
         else:
-            return jsonify ({'status' : 201,'data' : response}),201 
+            return jsonify ({'status' : 201,'data' : response}),201 '''

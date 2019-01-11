@@ -1,9 +1,10 @@
 
-def generate_id(list):
+
+def generator(collection):
     """ Function to generate ID for collection """
 
-    if len(list) == 0:
+    # If collection is empty return 1 else add 1 to id of last object
+    if len(collection) == 0:
         return 1
     else:
-        return list[-1]['id']+1
-    # If list is empty return 1 else add 1 to id of last object
+        return collection[-1]['id']+1

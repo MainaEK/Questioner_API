@@ -1,5 +1,5 @@
 from datetime import datetime
-from ..utils.generator import generate_id
+from ..utils.generator import generator
 
 questions = []
 
