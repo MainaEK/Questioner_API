@@ -5,7 +5,7 @@ from .base_models import BaseModels
 
 class MeetupModel(BaseModels):
     def __init__(self):
-        self.db = BaseModels(db = 'meetup')
+        super().__init__('meetup')
         
     def get_all(self):
         response = self.db.return_data()
