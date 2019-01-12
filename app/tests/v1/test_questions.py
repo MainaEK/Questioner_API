@@ -3,7 +3,7 @@ import unittest
 from ... import create_app
 
 
-class TestStackOverflow(unittest.TestCase):
+class TestQuestioner(unittest.TestCase):
     
     def setUp(self):
         self.app = create_app(config_name='testing')
