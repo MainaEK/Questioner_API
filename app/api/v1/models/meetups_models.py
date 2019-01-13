@@ -12,9 +12,16 @@ class MeetupModel(BaseModels):
         return response
 
 
-    '''def save(self, name, email):
-        user = {
-            'name' : name
-            'email' : email
+    def save(self, meetup):
+        meetup = {
+            'm_id' : generate_id(self.return_data),
+            'created_on' : datetime.now(),
+            'location' : meetup['location'],
+            'images' : meetup['images'],
+            'topic' : meetup['topic'],
+            'happening_on' : meetup['happening_on'],
+            'tags': meetup['tags']
         }
-        _b_model = BaseModel()'''
+        response = self.save(meetup)
+        return response
+        

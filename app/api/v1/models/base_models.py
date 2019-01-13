@@ -31,4 +31,8 @@ class BaseModels(object):
         db = self.check_db()
         return db
 
+    def save(self,data):
+        db = self.check_db()
+        db.append(data)
+        return data 
     
