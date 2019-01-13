@@ -13,3 +13,11 @@ def create_question():
 
     result = QuestionModel().create_question(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
+
+@v1.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
+def upvote_question(q_id):
+    if not QuestionModel().check_exists("q_id",q_id):
+        abort(make_response(jsonify({'status': 404, 'message': 'Question not found'}), 404))
+
+    question = QuestionModel().upvote(q_id)
+    return jsonify({'status': 200, 'message': 'Question upvoted successfully', 'data': question}), 200
