@@ -20,4 +20,14 @@ class QuestionModel(BaseModels):
         }
         response = self.save(question)
         return response
+
+    def upvote(self, q_id):
+        self.db = BaseModels(db = 'question')
+
+        """ Function to upvote question """
+        for question in self.db:
+            if question['q_id'] == q_id:
+                question['votes'] = question['votes']+1
+
+            return question
         
