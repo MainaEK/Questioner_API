@@ -21,3 +21,11 @@ def upvote_question(q_id):
 
     question = QuestionModel().upvote(q_id)
     return jsonify({'status': 200, 'message': 'Question upvoted successfully', 'data': question}), 200
+
+@v1.route('/questions/<int:q_id>/downvote', methods=['PATCH'])
+def downvote_question(q_id):
+    if not QuestionModel().check_exists("q_id",q_id):
+        abort(make_response(jsonify({'status': 404, 'message': 'Question not found'}), 404))
+
+    question = QuestionModel().downvote(q_id)
+    return jsonify({'status': 200, 'message': 'Question downvoted successfully', 'data': question}), 200
