@@ -1,27 +1,29 @@
 from datetime import datetime
 from ..utils.generator import generate_id
+from .base_models import BaseModels
 
-meetups = []
 
-class MeetupModel():
-    """ Model class for the meetup object """
-
+class MeetupModel(BaseModels):
     def __init__(self):
-        self.db = meetups
-
-    def save(self, meetup ={"m_id" : "", "created_on" : "", "location":"", "images":[],
-                 "topic":"", "happening_on":"", "tags":[]}):
-        """ Function to save new meetup """
-        #super().__init__(m_id = generate_id, created_on = datetime())
-        self.db.append(meetup)
-        return self.db
+        super().__init__('meetup')
+    
         
-
-    def fetch_using_id(self, m_id):
-        """ Function to fetch meetups by ID """
-        fetch_meetups = [meetup for meetup in self.db if meetup['m_id'] == m_id]
-        return fetch_meetups[0]
-
     def get_all(self):
-        """ Function to fetch all meetups """
-        return self.db
+        self.db = BaseModels(db = 'meetup')
+        response = self.db.return_data()
+        return response
+
+
+    def create_meetup(self, meetup):
+        meetup = {
+            'm_id' : meetup['m_id'],
+            'created_on' : meetup['created_on'],
+            'location' : meetup['location'],
+            'images' : meetup['images'],
+            'topic' : meetup['topic'],
+            'happening_on' : meetup['happening_on'],
+            'tags': meetup['tags']
+        }
+        response = self.save(meetup)
+        return response
+        
