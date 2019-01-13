@@ -30,4 +30,14 @@ class QuestionModel(BaseModels):
                 question['votes'] = question['votes']+1
 
             return question
+
+    def downvote(self, q_id):
+        self.db = BaseModels(db = 'question')
+
+        """ Function to downvote question """
+        for question in self.db:
+            if question['q_id'] == q_id:
+                question['votes'] = question['votes']-1
+
+            return question
         
