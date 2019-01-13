@@ -30,3 +30,28 @@ def create_meetup():
     result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
 
+@v1.route('/meetups/<int:m_id>/<string:rsvps>', methods=['POST'])
+def rspvs_meetup(m_id, rsvps):
+    """ Endpoint to RSVP to meetup """
+    valid_responses = ('yes', 'no', 'maybe')
+
+    """Check if meetup exists"""
+    if not MeetupModel().check_exists('m_id', m_id):
+        abort(make_response(jsonify({'status': 404, 'message': 'Meetup not found'}), 404))
+
+    """Check if rsvp is valid"""
+    if rsvps not in valid_responses:
+        abort(make_response(jsonify({'status': 400, 'message': 'Invalid rsvp'}), 400))
+
+    meetup = MeetupModel().find('m_id', m_id)
+    return jsonify({
+        'status': 200,
+        'message': 'Meetup rsvp successfully',
+        'data': {
+            'user_id': meetup('user_id'),
+            'm_id': meetup['m_id'],
+            'topic' : meetup['topic'],
+            'status': rsvps
+        }
+    }), 200
+
