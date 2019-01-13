@@ -8,8 +8,8 @@ class TestQuestioner(unittest.TestCase):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client()
-        self.meetups = { 'm_id':'1','created_on': '01/01/2000', 'location': 'Nairobi','images': ['screenshot'],
-        'topic': 'Python','happeningOn': '02/02/2000', 'tags': ['python']}
+        self.meetups = { "m_id":"1","created_on": "01/01/2000", "location": "Nairobi","images": "screenshot",
+        "topic": "Python","happening_on": "02/02/2000", "tags": "python"}
         
 
     def test_view_all_upcoming_meetups(self):

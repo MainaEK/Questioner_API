@@ -9,7 +9,7 @@ class TestQuestioner(unittest.TestCase):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client()
         self.questions = {"q_id":"1","created_on" : "01/01/2000", "created_by":"1", "meetup":"1",
-                 "title":"Posting in Python", "body":"How?", "votes": 3}
+                 "title":"Posting in Python", "body":"How?", "votes": "3"}
      
     def test_post_question(self):
         """ Test posting a question."""

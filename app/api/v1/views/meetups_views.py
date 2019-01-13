@@ -27,6 +27,6 @@ def create_meetup():
     if not json_data:
         abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
 
-    result = MeetupModel().save(json_data)
+    result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
 
