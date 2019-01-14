@@ -33,7 +33,7 @@ class TestQuestioner(unittest.TestCase):
     def test_post_rsvp(self):
         """ Test posting a rsvp."""
         self.client.post('/api/v1/meetups', data=json.dumps(self.meetups), content_type = 'application/json')
-        response = self.client.post('/api/v1/meetups/1/rsvp', data=json.dumps(self.meetups), content_type = 'application/json')
+        response = self.client.post('/api/v1/meetups/1/yes', data=json.dumps(self.meetups), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
     
 

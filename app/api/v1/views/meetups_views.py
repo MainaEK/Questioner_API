@@ -46,13 +46,12 @@ def rspvs_meetup(m_id, rsvps):
 
     meetup = MeetupModel().find('m_id', m_id)
     return jsonify({
-        'status': 200,
+        'status': 201,
         'message': 'Meetup rsvp successfully',
         'data': {
-            'user_id': meetup('user_id'),
             'm_id': meetup['m_id'],
             'topic' : meetup['topic'],
             'status': rsvps
         }
-    }), 200
+    }), 201
 
