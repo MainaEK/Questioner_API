@@ -13,7 +13,7 @@ class TestQuestioner(unittest.TestCase):
      
     def test_post_question(self):
         """ Test posting a question."""
-        response = self.client.post('/api/v1/post_question', data=json.dumps(self.questions), content_type = 'application/json')
+        response = self.client.post('/api/v1/questions', data=json.dumps(self.questions), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
 
     def test_downvote_a_question(self):
