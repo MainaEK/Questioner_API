@@ -25,6 +25,7 @@ class QuestionModel(BaseModels):
         self.db = BaseModels(db = 'question')
         response = self.db.return_data()
 
+
         """ Function to upvote question """
         for question in response:
             if question['q_id'] == q_id:
@@ -34,9 +35,10 @@ class QuestionModel(BaseModels):
 
     def downvote(self, q_id):
         self.db = BaseModels(db = 'question')
+        response = self.db.return_data()
 
         """ Function to downvote question """
-        for question in self.db:
+        for question in response:
             if question['q_id'] == q_id:
                 question['votes'] = question['votes']-1
 

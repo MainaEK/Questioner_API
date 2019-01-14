@@ -19,11 +19,10 @@ class BaseModels(object):
     def check_exists(self, key, value):
         db = self.check_db()
         items = [item for item in db if item[key] == value]
-        return len(items) > 0
+        return len(items) 
 
     def find(self, key, value):
         db = self.check_db()
-        print(key,value)
         items = [item for item in db if item[key] == value]
         return items[0]
 
