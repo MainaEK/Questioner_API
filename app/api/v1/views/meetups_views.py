@@ -13,8 +13,9 @@ def get_all_meetups():
 @v1.route('/meetups/<int:m_id>', methods=['GET'])
 def get_specific_meetup(m_id):
     '''Checks if the m_id exists in the db'''
-    if not MeetupModel().check_exists('m_id',m_id):
+    if not MeetupModel().check_exists("m_id",m_id):
         abort(make_response(jsonify({'status' : 404,'message' : 'Meetup not found'}),404))
+        
     '''If the m_id exists it is then returned''' 
     response = MeetupModel().find('m_id',m_id)
     return jsonify({'status' : 200,'data' : response}),200
@@ -45,13 +46,12 @@ def rspvs_meetup(m_id, rsvps):
 
     meetup = MeetupModel().find('m_id', m_id)
     return jsonify({
-        'status': 200,
+        'status': 201,
         'message': 'Meetup rsvp successfully',
         'data': {
-            'user_id': meetup('user_id'),
             'm_id': meetup['m_id'],
             'topic' : meetup['topic'],
             'status': rsvps
         }
-    }), 200
+    }), 201
 

@@ -6,12 +6,13 @@ from .base_models import BaseModels
 class MeetupModel(BaseModels):
     def __init__(self):
         super().__init__('meetup')
-    
+        
         
     def get_all(self):
         self.db = BaseModels(db = 'meetup')
         response = self.db.return_data()
         return response
+
 
 
     def create_meetup(self, meetup):

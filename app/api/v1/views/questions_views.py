@@ -12,7 +12,7 @@ def create_question():
         abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
 
     result = QuestionModel().create_question(json_data)
-    return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
+    return jsonify({'status': 201, 'message': 'Question was posted successfully', 'data': result}), 201
 
 @v1.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
 def upvote_question(q_id):
@@ -20,7 +20,7 @@ def upvote_question(q_id):
         abort(make_response(jsonify({'status': 404, 'message': 'Question not found'}), 404))
 
     question = QuestionModel().upvote(q_id)
-    return jsonify({'status': 200, 'message': 'Question upvoted successfully', 'data': question}), 200
+    return jsonify({'status': 201, 'message': 'Question upvoted successfully', 'data': question}), 201
 
 @v1.route('/questions/<int:q_id>/downvote', methods=['PATCH'])
 def downvote_question(q_id):
@@ -28,4 +28,4 @@ def downvote_question(q_id):
         abort(make_response(jsonify({'status': 404, 'message': 'Question not found'}), 404))
 
     question = QuestionModel().downvote(q_id)
-    return jsonify({'status': 200, 'message': 'Question downvoted successfully', 'data': question}), 200
+    return jsonify({'status': 201, 'message': 'Question downvoted successfully', 'data': question}), 201

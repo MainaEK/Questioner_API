@@ -13,7 +13,7 @@ class QuestionModel(BaseModels):
             'q_id' : question['q_id'],
             'created_on' : question['created_on'],
             'created_by' : question['created_by'],
-            'images' : question['images'],
+            'meetup' : question['meetup'],
             'title' : question['title'],
             'body' : question['body'],
             'votes': question['votes']
@@ -23,9 +23,11 @@ class QuestionModel(BaseModels):
 
     def upvote(self, q_id):
         self.db = BaseModels(db = 'question')
+        response = self.db.return_data()
+
 
         """ Function to upvote question """
-        for question in self.db:
+        for question in response:
             if question['q_id'] == q_id:
                 question['votes'] = question['votes']+1
 
@@ -33,9 +35,10 @@ class QuestionModel(BaseModels):
 
     def downvote(self, q_id):
         self.db = BaseModels(db = 'question')
+        response = self.db.return_data()
 
         """ Function to downvote question """
-        for question in self.db:
+        for question in response:
             if question['q_id'] == q_id:
                 question['votes'] = question['votes']-1
 

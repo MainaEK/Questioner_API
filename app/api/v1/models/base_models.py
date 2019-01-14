@@ -2,7 +2,6 @@ from flask import Flask, jsonify
 
 meetup_list = []
 question_list = []
-collection = []
 
 
 class BaseModels(object):
@@ -20,7 +19,7 @@ class BaseModels(object):
     def check_exists(self, key, value):
         db = self.check_db()
         items = [item for item in db if item[key] == value]
-        return len(items) > 0
+        return len(items) 
 
     def find(self, key, value):
         db = self.check_db()
