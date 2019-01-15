@@ -13,13 +13,10 @@ def create_question():
     if not json_data:
         abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
 
-    try:
-       data = QuestionSchema().load(json_data)
-       print(data)
-    except ValidationError as errors:
+    data, errors = QuestionSchema().load(json_data)
+    if errors:
+        abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
         
-        return jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors.messages}), 400
-
     result = QuestionModel().create_question(json_data)
     return jsonify({'status': 201, 'message': 'Question was posted successfully', 'data': result}), 201
 

@@ -6,7 +6,7 @@ class QuestionSchema(Schema):
     """ Class to validate schema for Question object """
 
     q_id = fields.Int(required=True)
-    created_on = fields.DateTime(required=True)
+    created_on = fields.Date(required=True)
     created_by = fields.Int(required=True)
     meetup = fields.Int(required=True)
     title = fields.Str(required=False)
