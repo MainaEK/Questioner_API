@@ -1,19 +1,12 @@
-from flask import Flask, jsonify, json
+from marshmallow import ValidationError
 
-'''Checks for empty entries in meetups''' 
-def sanitize_input(user_input):
-    if('id_' in user_input and 'createdOn' in user_input and 'location' in user_input 
-    and 'images' in user_input and 'topic' in user_input and 'happeningOn' in user_input 
-    and 'tags' in user_input):
-        return True
-    else:
-        return False  
+def Not_null_string(value):
+    """Validate that string field under validation does not contain null value"""
 
-'''Checks for empty entries in questions'''
-def sanitize_input_questions(user_input):
-    if('id_' in user_input and 'createdOn' in user_input and 'createdBy' in user_input 
-    and 'meetup' in user_input and 'title' in user_input and 'body' in user_input 
-    and 'votes' in user_input):
-        return True
-    else:
-        return False  
+    if isinstance(value, str):
+        if not value.strip(' '):
+            raise ValidationError('This parameter cannot be null')
+        return value
+    elif value:
+        return value
+

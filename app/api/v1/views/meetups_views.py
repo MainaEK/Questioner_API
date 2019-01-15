@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Response, json, abort, make_response
 from ..models.meetups_models import MeetupModel
 from ...v1 import v1
-from ..utils.validations import sanitize_input
+
 
 
 @v1.route('/meetups/upcoming', methods=['GET'])
