@@ -9,7 +9,7 @@ class QuestionSchema(Schema):
     created_on = fields.Date(required=True)
     created_by = fields.Int(required=True)
     meetup = fields.Int(required=True)
-    title = fields.Str(required=False)
+    title = fields.Str(required=True, validate= Not_null_string)
     body = fields.Str(required=True, validate= Not_null_string)
     votes = fields.Int(required=True)
     
