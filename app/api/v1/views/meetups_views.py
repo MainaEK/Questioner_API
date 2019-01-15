@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, Response, json, abort, make_response
+from marshmallow import ValidationError
 from ..models.meetups_models import MeetupModel
+from ..Schemas.meetup_schema import MeetupSchema
 from ...v1 import v1
-from ..utils.validations import sanitize_input
+
 
 
 @v1.route('/meetups/upcoming', methods=['GET'])
@@ -27,6 +29,11 @@ def create_meetup():
 
     if not json_data:
         abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
+
+    data, errors = MeetupSchema().load(json_data)
+    if errors:
+        abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
+
 
     result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
