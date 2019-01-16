@@ -3,6 +3,7 @@ from instance.config import app_config
 from app.api.v1.views.meetups_views import v1 as meetups_blueprint
 from app.api.v1.views.questions_views import v1 as questions_blueprint
 from app.api.v1.views.users_views import v1 as users_blueprint
+from app.api.v1.views.comments_views import v1 as comments_blueprint
 
 def create_app(config_name):
     """ Function to initialize Flask app """
