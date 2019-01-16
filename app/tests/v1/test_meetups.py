@@ -36,7 +36,11 @@ class TestQuestioner(unittest.TestCase):
         response = self.client.post('/api/v1/meetups/1/yes', data=json.dumps(self.meetups), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
     
-
+    def test_delete_meetup(self):
+        """ Test deleting a meetup."""
+        self.client.post('/api/v1/meetups', data=json.dumps(self.meetups), content_type = 'application/json')
+        response = self.client.delete('/api/v1/meetups/1', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()  
