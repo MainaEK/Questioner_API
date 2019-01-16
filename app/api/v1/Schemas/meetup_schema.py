@@ -12,3 +12,4 @@ class MeetupSchema(Schema):
     topic = fields.Str(required=True, validate= Not_null_string)
     happening_on = fields.Date(required=True, validate= Not_null_string)
     tags = fields.Str(required=False)
+    

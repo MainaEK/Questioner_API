@@ -7,3 +7,4 @@ def generate_id(list):
     else:
         return list[-1]['id']+1
     # If list is empty return 1 else add 1 to id of last object
+    

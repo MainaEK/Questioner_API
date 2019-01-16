@@ -35,3 +35,4 @@ def downvote_question(q_id):
 
     question = QuestionModel().downvote(q_id)
     return jsonify({'status': 201, 'message': 'Question downvoted successfully', 'data': question}), 201
+    
