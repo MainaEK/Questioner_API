@@ -32,3 +32,26 @@ def create_user():
       'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes = 60)}, app.config['SECRET_KEY'])
 
     return jsonify({'status': 201, 'data' : [{'token' : token.decode('UTF-8'), 'user' : result}]}), 201
+
+@v1.route('/auth/login', methods=['POST'])
+def login():
+        json_data = request.get_json()
+
+        if not json_data:
+            abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
+
+        '''Checks if the username exists in the db'''
+        if not UserModel().check_exists("username", json_data['username']):
+            abort(make_response(jsonify({'status' : 404,'message' : 'No such user has been registered'}),404))
+ 
+        response = UserModel().find('username', json_data['username'])
+        print(response)
+        if not response['password'] == json_data['password']:
+            abort(make_response(jsonify({'status' : 400,'message' : 'Incorrect password'}),400))
+        else:
+            token = jwt.encode({'username' : json_data['username'], 
+                'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes = 60)}, app.config['SECRET_KEY'])
+            
+            return jsonify({'status': 200, 'data' : [{'token' : token.decode('UTF-8'), 'user' : response}]}), 200
+
+       
