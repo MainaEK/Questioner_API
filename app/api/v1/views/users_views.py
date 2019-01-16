@@ -1,10 +1,13 @@
-from flask import Flask, jsonify, request, Response, json, abort, make_response
+from flask import Flask, jsonify, request, Response, json, abort, make_response, current_app
 from marshmallow import ValidationError
-
+import jwt
 import datetime
 from ..models.user_models import UserModel
 from ..Schemas.user_schema import UserSchema
 from ...v1 import v1
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'thisisthekey ' 
 
 
 @v1.route('/auth/signup', methods=['POST'])
@@ -25,6 +28,7 @@ def create_user():
         abort(make_response(jsonify({'status': 400, 'message' : 'Email Already exists'}), 400))
 
     result = UserModel().create_user(json_data)
-    
+    token = jwt.encode({'username' : json_data['username'], 
+      'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes = 60)}, app.config['SECRET_KEY'])
 
-    return jsonify({'status': 201, 'data' : result}), 201
+    return jsonify({'status': 201, 'data' : result , 'token' : token.decode('UTF-8')}), 201
