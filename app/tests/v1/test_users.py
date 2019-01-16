@@ -15,3 +15,4 @@ class TestQuestioner(unittest.TestCase):
         """ Test signing up a new user."""
         response = self.client.post('/api/v1/auth/signup', data=json.dumps(self.users), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
+        

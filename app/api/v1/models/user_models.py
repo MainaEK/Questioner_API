@@ -20,3 +20,4 @@ class UserModel(BaseModels):
         }
         response = self.save(user)
         return response
+        
