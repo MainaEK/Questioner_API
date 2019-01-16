@@ -31,4 +31,4 @@ def create_user():
     token = jwt.encode({'username' : json_data['username'], 
       'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes = 60)}, app.config['SECRET_KEY'])
 
-    return jsonify({'status': 201, 'data' : {'token' : token.decode('UTF-8'), 'user' : result}}), 201
+    return jsonify({'status': 201, 'data' : [{'token' : token.decode('UTF-8'), 'user' : result}]}), 201
