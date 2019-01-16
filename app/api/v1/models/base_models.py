@@ -38,3 +38,8 @@ class BaseModels(object):
         db.append(data)
         return data 
     
+    def delete(self, key, value):
+        """ Function to delete item """
+        item = self.find(key, value)
+        db = self.check_db()
+        db.remove(item)

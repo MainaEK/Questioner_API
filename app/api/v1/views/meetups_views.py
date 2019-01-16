@@ -62,3 +62,13 @@ def rspvs_meetup(m_id, rsvps):
         }
     }), 201
 
+@v1.route('/meetups/<int:m_id>', methods=['DELETE'])
+def delete_meetup(m_id):
+    '''Checks if the m_id exists in the db'''
+    if not MeetupModel().check_exists("m_id",m_id):
+        abort(make_response(jsonify({'status' : 404,'message' : 'Meetup not found'}),404))
+        
+    '''If the m_id exists it is then deleted''' 
+    MeetupModel().delete('m_id',m_id)
+    if not MeetupModel().check_exists("m_id",m_id):
+        return jsonify({'status' : 200,'data' : [], 'message' : 'Successfully deleted'}),200
