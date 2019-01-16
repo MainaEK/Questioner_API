@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 
 meetup_list = []
 question_list = []
+user_list = []
 
 
 class BaseModels(object):
@@ -14,6 +15,8 @@ class BaseModels(object):
             return meetup_list
         elif self.db == 'question':
             return question_list
+        elif self.db == 'user':
+            return user_list
 
 
     def check_exists(self, key, value):
