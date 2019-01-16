@@ -22,3 +22,4 @@ def make_comment():
     response = QuestionModel().find('q_id',json_data['q_id'])
     return jsonify({'status' : 201,'data' : [{'q_id' : response['q_id'], 'title' : response['title'],
     'body': response['body'], 'comment' : json_data['comment']}]}),201
+    
