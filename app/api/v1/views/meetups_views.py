@@ -3,6 +3,7 @@ from marshmallow import ValidationError
 from ..models.meetups_models import MeetupModel
 from ..Schemas.meetup_schema import MeetupSchema
 from ..Schemas.tag_schema import TagSchema
+from ..Schemas.image_schema import ImageSchema
 from ...v1 import v1
 
 
@@ -92,3 +93,22 @@ def add_tags(m_id):
     response = MeetupModel().find('m_id',m_id)
     return jsonify({'status' : 201,'data' : [{'m_id' : response['m_id'], 'topic' : response['topic'], 
     'tags' : json_data['tags']}]}),201
+
+@v1.route('/meetups/<int:m_id>/images', methods=['POST'])
+def add_images(m_id):
+    json_data = request.get_json()
+
+    if not json_data:
+        abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
+
+    data, errors = ImageSchema().load(json_data)
+    if errors:
+        abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
+
+    elif not MeetupModel().check_exists("m_id",m_id):
+        abort(make_response(jsonify({'status' : 404,'message' : 'Meetup not found'}),404))
+
+
+    response = MeetupModel().find('m_id',m_id)
+    return jsonify({'status' : 201,'data' : [{'m_id' : response['m_id'], 'topic' : response['topic'], 
+    'images' : json_data['images']}]}),201
