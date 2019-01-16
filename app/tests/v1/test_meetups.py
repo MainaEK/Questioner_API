@@ -49,6 +49,13 @@ class TestQuestioner(unittest.TestCase):
         response = self.client.post('/api/v1/meetups/1/tags', data=json.dumps(self.tags), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
 
+    def test_post_images(self):
+        """ Test posting a tag."""
+        self.client.post('/api/v1/meetups', data=json.dumps(self.meetups), content_type = 'application/json')
+        self.images ={ "images": ["python","coding"]}
+        response = self.client.post('/api/v1/meetups/1/images', data=json.dumps(self.images), content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
+
 if __name__ == '__main__':
     unittest.main()  
          
