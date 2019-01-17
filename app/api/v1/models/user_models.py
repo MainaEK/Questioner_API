@@ -1,6 +1,5 @@
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
-from ..utils.generator import generate_id
+
 from .base_models import BaseModels
 
 class UserModel(BaseModels):

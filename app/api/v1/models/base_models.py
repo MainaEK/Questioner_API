@@ -43,3 +43,5 @@ class BaseModels(object):
         item = self.find(key, value)
         db = self.check_db()
         db.remove(item)
+
+        

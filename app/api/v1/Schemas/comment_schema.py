@@ -7,3 +7,4 @@ class CommentSchema(Schema):
 
     q_id = fields.Int(required=True)
     comment = fields.Str(required=True, validate= Not_null_string)
+    
