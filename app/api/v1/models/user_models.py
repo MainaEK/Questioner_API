@@ -1,5 +1,5 @@
 from datetime import datetime
-from ..utils.generator import generate_id
+
 from .base_models import BaseModels
 
 class UserModel(BaseModels):
@@ -20,4 +20,6 @@ class UserModel(BaseModels):
         }
         response = self.save(user)
         return response
+
+  
         

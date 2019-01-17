@@ -1,5 +1,5 @@
 from datetime import datetime
-from ..utils.generator import generate_id
+
 from .base_models import BaseModels
 
 
@@ -43,4 +43,5 @@ class QuestionModel(BaseModels):
                 question['votes'] = question['votes']-1
 
             return question
+        
         

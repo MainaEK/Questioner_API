@@ -1,5 +1,5 @@
 from datetime import datetime
-from ..utils.generator import generate_id
+
 from .base_models import BaseModels
 
 
@@ -27,4 +27,5 @@ class MeetupModel(BaseModels):
         }
         response = self.save(meetup)
         return response
+        
         
