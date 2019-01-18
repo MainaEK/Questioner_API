@@ -7,7 +7,7 @@
 A questioner is a platform for crowd-sourcing questions for a meetup. It helps the meetup organizer prioritize  questions to be answered. Other users can vote on asked questions and they bubble to the top  or bottom of the log.
 
 ## Prerequisites
-- Python 3.7.0 
+- Python 3.6 
 - Postman
 
 
@@ -53,13 +53,20 @@ A questioner is a platform for crowd-sourcing questions for a meetup. It helps t
 
 | Endpoint                             | HTTP Verb   | Functionality           |
 | ------------------------------------ | ----------- | ----------------------- |    
-| /api/v1/meetups/                  | POST        | Create a meetup record       |
-| /api/v1/meetups/<meetup_id>/           | GET         | Fetch a specific meetup record |
-| /api/v1/meeetups/upcoming/           | GET         | Fetch all upcoming meetup records       |
-| /api/v1/questions/                | POST        | Create a question for a specific meetup   |
-| /api/v1/questions/<question_id>/upvote/| PATCH       | Up-vote a specific question       |
-| /api/v1/questions/<question_id>/downvote/| PATCH       | Down-vote a specific question       |
-| /api/v1/meetups/<meetup_id>/rsvps/   | POST        | Create a rsvp for a specific meetup   |
+| /api/v1/meetups                  | POST        | Create a meetup record       |
+| /api/v1/meetups/<meetup_id>           | GET         | Fetch a specific meetup record |
+| /api/v1/meetups/<meetup_id>           | DELETE         | Deleting a specific meetup record |
+| /api/v1/meeetups/upcoming           | GET         | Fetch all upcoming meetup records       |
+| /api/v1/meetups/<meetup_id>/rsvps    | POST        | Create a rsvp for a specific meetup   |
+| /api/v1/meetups/<meetup_id>/tags                  | POST        | Posting a tag to a meetup      |
+| /api/v1/meetups/<meetup_id>/images                  | POST        | Posting an image to a meetup  |
+| /api/v1/questions                | POST        | Create a question for a specific meetup   |
+| /api/v1/questions/<question_id>/upvote| PATCH       | Up-vote a specific question       |
+| /api/v1/questions/<question_id>/downvote| PATCH       | Down-vote a specific question       |
+| /api/v1/comments  | POST        | Making a comment on a question   |
+| /api/v1/auth/signup                  | POST        | Create a user      |
+| /api/v1/auth/login                  | POST        | Login a user      |
+
 
 ## Authors
 [Eric Maina](https://github.com/erick-maina)
