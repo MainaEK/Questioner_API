@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from instance.config import app_config
 from app.api.v1.views.meetups_views import v1 as meetups_blueprint
