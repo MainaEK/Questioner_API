@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from  .db_tables import create_users,create_meetups,create_questions,create_comments,create_rsvps,create_votes
 
 
-#DATABASE_URL = os.getenv('DATABASE_URL')
-DATABASE_URL = "dbname='questioner' user='eric' password='root' host='localhost' port='5432'"
+DATABASE_URL = os.getenv('DATABASE_URL')
+#DATABASE_URL = "dbname='questioner' user='eric' password='root' host='localhost' port='5432'"
 
 def db_con():
     con = psycopg2.connect(DATABASE_URL)
