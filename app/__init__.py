@@ -5,6 +5,7 @@ from app.api.v1.views.meetups_views import v1 as meetups_blueprint
 from app.api.v1.views.questions_views import v1 as questions_blueprint
 from app.api.v1.views.users_views import v1 as users_blueprint
 from app.api.v1.views.comments_views import v1 as comments_blueprint
+from .database import create_db
 
 def create_app(config_name):
     """ Function to initialize Flask app """
@@ -14,6 +15,7 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.register_blueprint(meetups_blueprint)
+    create_db()
     
     return app
 
