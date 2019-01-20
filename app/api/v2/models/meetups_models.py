@@ -1,17 +1,22 @@
 from datetime import datetime
 
 from .base_models import BaseModels
+from ....database import db_con
 
+connect = db_con()
 
 class MeetupModel(BaseModels):
     def __init__(self):
-        super().__init__('meetup')
+        super().__init__('meetups')
+        
         
         
     def get_all(self):
-        self.db = BaseModels(db = 'meetup')
-        response = self.db.return_data()
-        return response
+        self.cur = connect.cursor()
+        query = """SELECT * FROM meetups WHERE happening_on >= NOW();"""
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
 
 
 

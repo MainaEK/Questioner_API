@@ -5,9 +5,9 @@ from marshmallow import ValidationError
 # local imports
 from ..models.question_models import QuestionModel
 from ..Schemas.comment_schema import CommentSchema
-from ...v1 import v1
+from ...v2 import v2
 
-@v1.route('/comments', methods=['POST'])
+@v2.route('/comments', methods=['POST'])
 def make_comment():
     """ For making comments on questions"""
     json_data = request.get_json()

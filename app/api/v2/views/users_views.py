@@ -9,13 +9,13 @@ import datetime
 # local imports
 from ..models.user_models import UserModel
 from ..Schemas.user_schema import UserSchema
-from ...v1 import v1
+from ...v2 import v2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisthekey ' 
 
 
-@v1.route('/auth/signup', methods=['POST'])
+@v2.route('/auth/signup', methods=['POST'])
 def create_user():
     """ Endpoint to create a new user"""
     json_data = request.get_json()
@@ -44,7 +44,7 @@ def create_user():
 
     return jsonify({'status': 201, 'data' : [{'token' : token.decode('UTF-8'), 'user' : result}]}), 201
 
-@v1.route('/auth/login', methods=['POST'])
+@v2.route('/auth/login', methods=['POST'])
 def login():
     """ Endpoint to login a user"""
     json_data = request.get_json()

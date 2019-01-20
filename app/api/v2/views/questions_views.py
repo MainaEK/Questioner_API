@@ -5,11 +5,11 @@ from marshmallow import ValidationError
 # local imports
 from ..models.question_models import QuestionModel
 from ..Schemas.question_schema import QuestionSchema
-from ...v1 import v1
+from ...v2 import v2
 
 
 
-@v1.route('/questions', methods=['POST'])
+@v2.route('/questions', methods=['POST'])
 def create_question():
     """Endpoint to create a question"""
     json_data = request.get_json()
@@ -27,7 +27,7 @@ def create_question():
     result = QuestionModel().create_question(json_data)
     return jsonify({'status': 201, 'message': 'Question was posted successfully', 'data': result}), 201
 
-@v1.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
+@v2.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
 def upvote_question(q_id):
     """Checks if the question exists"""
     if not QuestionModel().check_exists("q_id",q_id):
@@ -37,7 +37,7 @@ def upvote_question(q_id):
     question = QuestionModel().upvote(q_id)
     return jsonify({'status': 201, 'message': 'Question upvoted successfully', 'data': question}), 201
 
-@v1.route('/questions/<int:q_id>/downvote', methods=['PATCH'])
+@v2.route('/questions/<int:q_id>/downvote', methods=['PATCH'])
 def downvote_question(q_id):
     """Checks if the question exists"""
     if not QuestionModel().check_exists("q_id",q_id):

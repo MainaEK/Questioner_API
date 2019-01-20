@@ -1,22 +1,12 @@
 from flask import Flask, jsonify
+from ....database import db_con
 
-meetup_list = []
-question_list = []
-user_list = []
 
 
 class BaseModels(object):
-    def __init__(self, db):
-        self.db = db
-
-
-    def check_db(self):
-        if self.db == 'meetup':
-            return meetup_list
-        elif self.db == 'question':
-            return question_list
-        elif self.db == 'user':
-            return user_list
+    def __init__(self, tablename):
+        self.table = tablename
+        connect = db_con()
 
 
     def check_exists(self, key, value):
@@ -29,9 +19,6 @@ class BaseModels(object):
         items = [item for item in db if item[key] == value]
         return items[0]
 
-    def return_data(self):
-        db = self.check_db()
-        return db
 
     def save(self,data):
         db = self.check_db()
