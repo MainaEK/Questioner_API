@@ -6,8 +6,15 @@ python:
 install:
   - pip install -r requirements.txt
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c "CREATE DATABASE questioner_test;" -U postgres
+  - psql -c "CREATE USER eric WITH PASSWORD 'root';" -U postgres
+  
+
 script:
-  - pytest --cov=app/tests
   - pytest --cov=app
 
 after_success:
