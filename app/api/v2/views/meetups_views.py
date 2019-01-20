@@ -7,17 +7,17 @@ from ..models.meetups_models import MeetupModel
 from ..Schemas.meetup_schema import MeetupSchema
 from ..Schemas.tag_schema import TagSchema
 from ..Schemas.image_schema import ImageSchema
-from ...v1 import v1
+from ...v2 import v2
 
 
 
-@v1.route('/meetups/upcoming', methods=['GET'])
+@v2.route('/meetups/upcoming', methods=['GET'])
 def get_all_meetups():
     '''Gets all upcoming meetups'''
     response = MeetupModel().get_all()
     return jsonify({'status' : 200,'data' : response}),200
 
-@v1.route('/meetups/<int:m_id>', methods=['GET'])
+@v2.route('/meetups/<int:m_id>', methods=['GET'])
 def get_specific_meetup(m_id):
     '''Checks if the meetup exists'''
     if not MeetupModel().check_exists("m_id",m_id):
@@ -28,7 +28,7 @@ def get_specific_meetup(m_id):
     return jsonify({'status' : 200,'data' : response}),200
 
     
-@v1.route('/meetups', methods=['POST'])
+@v2.route('/meetups', methods=['POST'])
 def create_meetup():
     """ Endpoint that creates a new meetup"""
     json_data = request.get_json()
@@ -46,7 +46,7 @@ def create_meetup():
     result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
 
-@v1.route('/meetups/<int:m_id>/<string:rsvps>', methods=['POST'])
+@v2.route('/meetups/<int:m_id>/<string:rsvps>', methods=['POST'])
 def rspvs_meetup(m_id, rsvps):
     """ Endpoint to RSVP to meetup """
     valid_responses = ('yes', 'no', 'maybe')
@@ -71,7 +71,7 @@ def rspvs_meetup(m_id, rsvps):
         }
     }), 201
 
-@v1.route('/meetups/<int:m_id>', methods=['DELETE'])
+@v2.route('/meetups/<int:m_id>', methods=['DELETE'])
 def delete_meetup(m_id):
     '''Checks if the meetup exists'''
     if not MeetupModel().check_exists("m_id",m_id):
@@ -82,7 +82,7 @@ def delete_meetup(m_id):
     if not MeetupModel().check_exists("m_id",m_id):
         return jsonify({'status' : 200,'data' : [], 'message' : 'Successfully deleted'}),200
 
-@v1.route('/meetups/<int:m_id>/tags', methods=['POST'])
+@v2.route('/meetups/<int:m_id>/tags', methods=['POST'])
 def add_tags(m_id):
     """ Endpoint that adds tags"""
     json_data = request.get_json()
@@ -105,7 +105,7 @@ def add_tags(m_id):
     return jsonify({'status' : 201,'data' : [{'m_id' : response['m_id'], 'topic' : response['topic'], 
     'tags' : json_data['tags']}]}),201
 
-@v1.route('/meetups/<int:m_id>/images', methods=['POST'])
+@v2.route('/meetups/<int:m_id>/images', methods=['POST'])
 def add_images(m_id):
     """ Endpoint that adds images"""
     json_data = request.get_json()
