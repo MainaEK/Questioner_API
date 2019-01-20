@@ -23,16 +23,11 @@ class MeetupModel(BaseModels):
 
 
     def create_meetup(self, meetup):
-        meetup = {
-            'm_id' : meetup['m_id'],
-            'created_on' : meetup['created_on'],
-            'location' : meetup['location'],
-            'images' : meetup['images'],
-            'topic' : meetup['topic'],
-            'happening_on' : meetup['happening_on'],
-            'tags': meetup['tags']
-        }
-        response = self.save(meetup)
-        return response
+        self.cur = self.connect.cursor()
+        query = """INSERT INTO meetups (location,images,topic,happening_on,tags)\
+        VALUES ('{}','{}','{}','{}','{}') RETURNING json_build_object('m_id',m_id,'topic',topic,'location',location,'happening_on',happening_on,'tags',tags);""".format(meetup['location'],meetup['images'],meetup['topic'],meetup['happening_on'],meetup['tags'])
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        return result
         
         
