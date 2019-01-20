@@ -6,7 +6,7 @@ from ....database import db_con
 class BaseModels(object):
     def __init__(self, tablename):
         self.table = tablename
-        connect = db_con()
+        self.connect = db_con()
 
 
     def check_exists(self, key, value):
