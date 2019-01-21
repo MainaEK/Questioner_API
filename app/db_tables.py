@@ -17,7 +17,7 @@ admin BOOLEAN NOT NULL DEFAULT FALSE
 """,
 """
 CREATE TABLE IF NOT EXISTS meetups (
-m_id SERIAL PRIMARY KEY NOT NULL,
+meetup_id SERIAL PRIMARY KEY NOT NULL,
 topic VARCHAR(250) NOT NULL,
 location VARCHAR(250) NOT NULL,
 happening_on TIMESTAMP WITHOUT TIME ZONE NOT NULL,
@@ -31,52 +31,52 @@ tags VARCHAR(250) NULL
 """,
 """
 CREATE TABLE IF NOT EXISTS questions (
-q_id SERIAL PRIMARY KEY NOT NULL,
+question_id SERIAL PRIMARY KEY NOT NULL,
 title VARCHAR(250) NULL,
 body VARCHAR(250) NOT NULL,
 votes INTEGER NOT NULL DEFAULT 0,
-m_id INTEGER NOT NULL,
+meetup_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 created_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-FOREIGN KEY (m_id) REFERENCES meetups(m_id),
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
 """
 CREATE TABLE IF NOT EXISTS comments (
-c_id SERIAL PRIMARY KEY NOT NULL,
+comment_id SERIAL PRIMARY KEY NOT NULL,
 body VARCHAR(250) NULL,
-q_id INTEGER NOT NULL,
+question_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 created_at TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-FOREIGN KEY (q_id) REFERENCES questions(q_id),
+FOREIGN KEY (question_id) REFERENCES questions(question_id),
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
 """
 CREATE TABLE IF NOT EXISTS rsvps (
-m_id INTEGER NOT NULL,
+meetup_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 response VARCHAR(10),
 created_at TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-PRIMARY KEY (m_id, user_id)
+PRIMARY KEY (meetup_id, user_id)
 )
 """,
 """
 CREATE TABLE IF NOT EXISTS votes (
-q_id INTEGER NOT NULL,
+question_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 vote VARCHAR(10),
-PRIMARY KEY (q_id, user_id)
+PRIMARY KEY (question_id, user_id)
 )
 """]
 
