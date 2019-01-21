@@ -44,3 +44,14 @@ def get_specific_meetup(m_id):
     response = MeetupModel().find(m_id)
     return jsonify({'status' : 200,'data' : response}),200
     
+@v2.route('/meetups/<int:m_id>', methods=['DELETE'])
+def delete_meetup(m_id):
+    '''Checks if the meetup exists'''
+    if not MeetupModel().check_exists("meetup_id",m_id):
+        abort(make_response(jsonify({'status' : 404,'message' : 'Meetup not found'}),404))
+        
+    '''If the meetup exists it is then deleted and feedback returned ''' 
+    MeetupModel().delete(m_id)
+    if not MeetupModel().check_exists("meetup_id",m_id):
+        return jsonify({'status' : 200,'data' : [], 'message' : 'Successfully deleted'}),200
+
