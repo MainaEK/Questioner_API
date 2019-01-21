@@ -5,6 +5,7 @@ from .database import db_con
 from .db_tables import create_db,admin
 from app.api.v2.views.meetups_views import v2 as meetups_blueprint
 from app.api.v2.views.questions_views import v2 as questions_blueprint
+from app.api.v2.views.comments_view import v2 as comments_blueprint
 
 
 def create_app(config_name):
