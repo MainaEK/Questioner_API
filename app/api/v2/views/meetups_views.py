@@ -14,3 +14,21 @@ def get_all_meetups():
     '''Gets all upcoming meetups'''
     response = MeetupModel().get_all()
     return jsonify({'status' : 200,'data' : response}),200
+
+@v2.route('/meetups', methods=['POST'])
+def create_meetup():
+    """ Endpoint that creates a new meetup"""
+    json_data = request.get_json()
+    
+    """ CHecks if there's data and if it's in json format"""
+    if not json_data:
+        abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
+    
+    """ Checks that all the required fields have input"""
+    data, errors = MeetupSchema().load(json_data)
+    if errors:
+        abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
+
+    """ Creates the meetup and returns feedback in json format"""
+    result = MeetupModel().create_meetup(json_data)
+    return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
