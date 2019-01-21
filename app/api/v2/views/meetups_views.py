@@ -32,3 +32,15 @@ def create_meetup():
     """ Creates the meetup and returns feedback in json format"""
     result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
+
+
+@v2.route('/meetups/<int:m_id>', methods=['GET'])
+def get_specific_meetup(m_id):
+    '''Checks if the meetup exists'''
+    if not MeetupModel().check_exists('meetup_id', m_id):
+        abort(make_response(jsonify({'status' : 404,'message' : 'Meetup not found'}),404))
+        
+    '''If the m_id exists it is then returned''' 
+    response = MeetupModel().find(m_id)
+    return jsonify({'status' : 200,'data' : response}),200
+    
