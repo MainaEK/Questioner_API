@@ -14,6 +14,13 @@ class UserModel(BaseModels):
         result = self.cur.fetchall()
         return  len(result) > 0
 
+    def find(self, value):
+        self.cur = self.connect.cursor()
+        query = """SELECT json_build_object('user_id',user_id,'firstname',firstname,'lastname',lastname,'email',email,'username', username,'password',password) 
+                FROM ( SELECT user_id,firstname,lastname,email,username,password FROM users WHERE username = '{}') AS found;""".format(value)
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        return result
 
     def create_user(self, user):
         self.cur = self.connect.cursor()
