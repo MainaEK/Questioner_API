@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,get_jwt_identity)
 
 # standard imports
-import datetime
+from werkzeug.security import check_password_hash
 
 # local imports
 from ..models.user_models import UserModel
@@ -16,7 +16,6 @@ from ...v2 import v2
 def create_user():
     """ Endpoint to create a new user"""
     json_data = request.get_json()
-    print(json_data)
     
     """Checks if there's data and if it's in json format"""
     if not json_data:
@@ -39,3 +38,28 @@ def create_user():
     result = UserModel().create_user(json_data)
     
     return jsonify({'status': 201, 'data' : [{'user' : result}]}), 201
+
+@v2.route('/auth/login', methods=['POST'])
+def login():
+    """ Endpoint to login a user"""
+    json_data = request.get_json()
+    
+    """Checks if there's data and if it's in json format"""
+    if not json_data:
+        abort(make_response(jsonify({'status': 400, 'message': 'No data provided'}), 400))
+
+    """Checks if the user exists"""
+    if not UserModel().check_exist("username", json_data['username']):
+        abort(make_response(jsonify({'status' : 404,'message' : 'No such user has been registered'}),404))
+    
+    """Checks if the password is correct"""
+    response = UserModel().find(json_data['username'])
+    if not check_password_hash(response[0]['password'],json_data['password']):
+        abort(make_response(jsonify({'status' : 400,'message' : 'Incorrect password'}),400))
+    
+        """Logs in the user"""
+    else:
+        access_token = create_access_token(identity = response[0]['user_id'])
+            
+        return jsonify({'status': 200, 'data' : [{'token' : access_token, 'user' : response}]}), 200
+

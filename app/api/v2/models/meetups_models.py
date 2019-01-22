@@ -41,7 +41,6 @@ class MeetupModel(BaseModels):
                 FROM ( SELECT meetup_id,topic,location,happening_on,tags FROM meetups WHERE meetup_id = {}) AS found;""".format(m_id)
         self.cur.execute(query)
         result = self.cur.fetchone()
-        print(result)
         return result
 
     def delete(self, m_id):
