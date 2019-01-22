@@ -4,6 +4,7 @@ from marshmallow import ValidationError
 
 # local imports
 from ..models.meetups_models import MeetupModel
+from ..models.rsvp_models import RsvpModel
 from ..Schemas.meetup_schema import MeetupSchema
 from ...v2 import v2
 
@@ -30,6 +31,7 @@ def create_meetup():
         abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
 
     """ Creates the meetup and returns feedback in json format"""
+    print(json_data)
     result = MeetupModel().create_meetup(json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
 
@@ -54,4 +56,21 @@ def delete_meetup(m_id):
     MeetupModel().delete(m_id)
     if not MeetupModel().check_exists("meetup_id",m_id):
         return jsonify({'status' : 200,'data' : [], 'message' : 'Successfully deleted'}),200
+
+@v2.route('/meetups/<int:m_id>/<string:rsvp>', methods=['POST'])
+def rspvs_meetup(m_id, rsvp):
+    """ Endpoint to RSVP to meetup """
+    valid_responses = ('yes', 'no', 'maybe')
+
+    """Checks if meetup exists"""
+    if not MeetupModel().check_exists('meetup_id', m_id):
+        abort(make_response(jsonify({'status': 404, 'message': 'Meetup not found'}), 404))
+
+    """Check if rsvp is valid"""
+    if rsvp not in valid_responses:
+        abort(make_response(jsonify({'status': 400, 'message': 'Invalid rsvp'}), 400))
+    
+    """Creates the RSVP and returns feedback in json format"""
+    response = RsvpModel().create_rsvp(m_id,rsvp)
+    return jsonify({'status' : 201,'message' : 'Rsvp made.','data' : response}),201
 
