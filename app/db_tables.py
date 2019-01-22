@@ -25,8 +25,8 @@ created_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-images VARCHAR(250) NULL,
-tags VARCHAR(250) NULL
+images TEXT [],
+tags TEXT []
 )
 """,
 """
@@ -36,13 +36,12 @@ title VARCHAR(250) NULL,
 body VARCHAR(250) NOT NULL,
 votes INTEGER NOT NULL DEFAULT 0,
 meetup_id INTEGER NOT NULL,
-user_id INTEGER NOT NULL,
+user_id INTEGER [],
 created_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
-FOREIGN KEY (user_id) REFERENCES users(user_id)
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id)
 )
 """,
 """
@@ -63,22 +62,17 @@ FOREIGN KEY (user_id) REFERENCES users(user_id)
 CREATE TABLE IF NOT EXISTS rsvps (
 meetup_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
-response VARCHAR(10),
+rsvp VARCHAR(10),
 created_at TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-PRIMARY KEY (meetup_id, user_id)
+PRIMARY KEY (meetup_id, user_id),
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
+FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
-""",
 """
-CREATE TABLE IF NOT EXISTS votes (
-question_id INTEGER NOT NULL,
-user_id INTEGER NOT NULL,
-vote VARCHAR(10),
-PRIMARY KEY (question_id, user_id)
-)
-"""]
+]
 
 def create_db(connect):
     cur = connect.cursor()
