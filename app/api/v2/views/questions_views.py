@@ -25,3 +25,14 @@ def create_question():
     """Posts the question and returns feedback in json format"""     
     result = QuestionModel().create_question(json_data)
     return jsonify({'status': 201, 'message': 'Question was posted successfully', 'data': result}), 201
+
+@v2.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
+def upvote_question(q_id):
+    """Checks if the question exists"""
+    if not QuestionModel().check_exists("question_id",q_id):
+        abort(make_response(jsonify({'status': 404, 'message': 'Question not found'}), 404))
+    
+    """Upvotes the question and returns feedback in json format"""
+    question = QuestionModel().upvote(q_id)
+    return jsonify({'status': 201, 'message': 'Question upvoted successfully', 'data': question}), 201
+
