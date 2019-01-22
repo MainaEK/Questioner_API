@@ -1,12 +1,10 @@
 
-from ....database import db_con
 from .base_models import BaseModels
 
 
 class MeetupModel(BaseModels):
     def __init__(self):
         super().__init__('meetups')
-        self.connect = db_con()
         
         
     def get_all(self):
