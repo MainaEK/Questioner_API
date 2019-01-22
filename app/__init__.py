@@ -1,12 +1,13 @@
 import os
 from flask import Flask
+from flask_jwt_extended import (JWTManager)
 from instance.config import app_config
 from .database import db_con
 from .db_tables import create_db,admin
 from app.api.v2.views.meetups_views import v2 as meetups_blueprint
 from app.api.v2.views.questions_views import v2 as questions_blueprint
 from app.api.v2.views.comments_view import v2 as comments_blueprint
-
+from app.api.v2.views.user_views import v2 as users_blueprint
 
 def create_app(config_name):
     """ Function to initialize Flask app """
@@ -25,7 +26,8 @@ def create_app(config_name):
     except Exception:
         print("Unable to make db connection")
         
-    
+    app.config['JWT_SECRET_KEY'] = 'thesecret'  
+    jwt = JWTManager(app)
   
     
     return app
