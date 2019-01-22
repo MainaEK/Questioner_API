@@ -7,11 +7,11 @@ class QuestionModel(BaseModels):
         super().__init__('questions')
     
         
-    def create_question(self, question):
+    def create_question(self, user_id, m_id, question):
         self.cur = self.connect.cursor()
         query = """INSERT INTO questions (user_id,meetup_id,title,body)\
-        VALUES ('{}','{}','{}','{}') RETURNING json_build_object('user_id',user_id,'meetup_id',meetup_id,'title',title,'body',body)
-        ;""".format(question['user_id'],question['meetup_id'],question['title'],question['body'])
+        VALUES ('{}','{}','{}','{}') RETURNING json_build_object('user_id',user_id,'meetup_id',meetup_id,'question_id',question_id,'title',title,'body',body)
+        ;""".format(user_id,m_id,question['title'],question['body'])
         self.cur.execute(query)
         self.connect.commit()
         result = self.cur.fetchone()

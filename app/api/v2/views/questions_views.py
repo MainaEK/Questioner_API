@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, Response, json, abort, make_response
 from marshmallow import ValidationError
+from flask_jwt_extended import (jwt_required, get_jwt_identity)
 
 # local imports
 from ..models.question_models import QuestionModel
@@ -8,8 +9,9 @@ from ...v2 import v2
 
 
 
-@v2.route('/questions', methods=['POST'])
-def create_question():
+@v2.route('/meetups/<int:m_id>/questions', methods=['POST'])
+@jwt_required
+def create_question(m_id):
     """Endpoint to create a question"""
     json_data = request.get_json()
     
@@ -22,11 +24,13 @@ def create_question():
     if errors:
         abort(make_response(jsonify({'status': 400, 'message' : 'Invalid data. Please fill all required fields', 'errors': errors}), 400))
 
-    """Posts the question and returns feedback in json format"""     
-    result = QuestionModel().create_question(json_data)
+    """Posts the question and returns feedback in json format"""
+    user_id = get_jwt_identity()     
+    result = QuestionModel().create_question(user_id, m_id, json_data)
     return jsonify({'status': 201, 'message': 'Question was posted successfully', 'data': result}), 201
 
 @v2.route('/questions/<int:q_id>/upvote', methods=['PATCH'])
+@jwt_required
 def upvote_question(q_id):
     """Checks if the question exists"""
     if not QuestionModel().check_exists("question_id",q_id):
@@ -37,6 +41,7 @@ def upvote_question(q_id):
     return jsonify({'status': 201, 'message': 'Question upvoted successfully', 'data': question}), 201
 
 @v2.route('/questions/<int:q_id>/downvote', methods=['PATCH'])
+@jwt_required
 def downvote_question(q_id):
     """Checks if the question exists"""
     if not QuestionModel().check_exists("question_id",q_id):
