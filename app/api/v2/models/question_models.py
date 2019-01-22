@@ -24,3 +24,11 @@ class QuestionModel(BaseModels):
         self.connect.commit()
         result = self.cur.fetchone()
         return result
+
+    def downvote(self, q_id):
+        self.cur = self.connect.cursor()
+        query = """UPDATE questions SET votes = votes - 1 WHERE question_id = {} RETURNING json_build_object('meetup_id',meetup_id,'title',title,'body',body,'votes',votes) ;""".format(q_id)
+        self.cur.execute(query)
+        self.connect.commit()
+        result = self.cur.fetchone()
+        return result
