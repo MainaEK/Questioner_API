@@ -36,8 +36,8 @@ def create_user():
     
     """Registers the new user and automatically logs them in"""
     result = UserModel().create_user(json_data)
-    
-    return jsonify({'status': 201, 'data' : [{'user' : result}]}), 201
+    access_token = create_access_token(identity = result[0]['user_id'])
+    return jsonify({'status': 201,'data' : [{'token' : access_token ,'user' : result}]}), 201
 
 @v2.route('/auth/login', methods=['POST'])
 def login():

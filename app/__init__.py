@@ -26,7 +26,7 @@ def create_app(config_name):
     except Exception:
         print("Unable to make db connection")
         
-    app.config['JWT_SECRET_KEY'] = 'thesecret'  
+    app.config['JWT_SECRET_KEY'] = 'secret'  
     jwt = JWTManager(app)
   
     

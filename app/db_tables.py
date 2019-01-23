@@ -36,18 +36,19 @@ title VARCHAR(250) NULL,
 body VARCHAR(250) NOT NULL,
 votes INTEGER NOT NULL DEFAULT 0,
 meetup_id INTEGER NOT NULL,
-user_id INTEGER [],
+user_id INTEGER NOT NULL,
 created_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id)
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
+FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
 """
 CREATE TABLE IF NOT EXISTS comments (
 comment_id SERIAL PRIMARY KEY NOT NULL,
-body VARCHAR(250) NULL,
+comment VARCHAR(250) NULL,
 question_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 created_at TIMESTAMP WITHOUT TIME ZONE \
