@@ -41,7 +41,7 @@ created_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
-FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
@@ -69,7 +69,7 @@ DEFAULT (NOW() AT TIME ZONE 'utc'),
 modified_on TIMESTAMP WITHOUT TIME ZONE \
 DEFAULT (NOW() AT TIME ZONE 'utc'),
 PRIMARY KEY (meetup_id, user_id),
-FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id),
+FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """
@@ -84,8 +84,12 @@ def create_db(connect):
 
 def admin(connect):
     cur = connect.cursor()
-    cur.execute("INSERT INTO users (firstname, lastname, username, email, password, admin)\
+    query = """SELECT  * FROM users WHERE username = 'eric';"""
+    cur.execute(query)
+    result = cur.fetchone()
+    if not result:
+        cur.execute("""INSERT INTO users (firstname, lastname, username, email, password, admin)\
         VALUES ('Eric', 'Maina', 'eric', 'admin@app.com', '{}', True)\
-        ".format(generate_password_hash('Eric1234')))
+        """.format(generate_password_hash('Eric1234')))
     connect.commit()
     
