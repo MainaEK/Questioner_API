@@ -27,3 +27,5 @@ def create_comments(q_id):
     user_id = get_jwt_identity()
     result = CommentsModel().create_comment(user_id, q_id, json_data)
     return jsonify({'status': 201, 'message': 'Meetup created successfully', 'data': result}), 201
+
+    
