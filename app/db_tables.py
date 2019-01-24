@@ -89,7 +89,7 @@ def admin(connect):
     result = cur.fetchone()
     if not result:
         cur.execute("""INSERT INTO users (firstname, lastname, username, email, password, admin)\
-        VALUES ('Eric', 'Maina', 'eric', 'admin@app.com', '{}', True)\
+        VALUES ('Eric', 'Maina', 'eric', 'admin@hotmail.com', '{}', True)\
         """.format(generate_password_hash('Eric1234')))
     connect.commit()
     
