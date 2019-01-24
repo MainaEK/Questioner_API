@@ -1,6 +1,9 @@
+"""
+Contains the script for creating database tables
+"""
 from werkzeug.security import generate_password_hash
 
-create_tables =["""
+create_tables = ["""
 CREATE TABLE IF NOT EXISTS users (
 user_id SERIAL PRIMARY KEY NOT NULL,
 firstname VARCHAR(250) NOT NULL,
@@ -15,7 +18,7 @@ DEFAULT (NOW() AT TIME ZONE 'utc'),
 admin BOOLEAN NOT NULL DEFAULT FALSE
 )
 """,
-"""
+                 """
 CREATE TABLE IF NOT EXISTS meetups (
 meetup_id SERIAL PRIMARY KEY NOT NULL,
 topic VARCHAR(250) NOT NULL,
@@ -29,7 +32,7 @@ images TEXT [],
 tags TEXT []
 )
 """,
-"""
+                 """
 CREATE TABLE IF NOT EXISTS questions (
 question_id SERIAL PRIMARY KEY NOT NULL,
 title VARCHAR(250) NULL,
@@ -45,7 +48,7 @@ FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
-"""
+                 """
 CREATE TABLE IF NOT EXISTS comments (
 comment_id SERIAL PRIMARY KEY NOT NULL,
 comment VARCHAR(250) NULL,
@@ -59,7 +62,7 @@ FOREIGN KEY (question_id) REFERENCES questions(question_id),
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """,
-"""
+                 """
 CREATE TABLE IF NOT EXISTS rsvps (
 meetup_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
@@ -73,9 +76,11 @@ FOREIGN KEY (meetup_id) REFERENCES meetups(meetup_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 )
 """
-]
+                 ]
+
 
 def create_db(connect):
+    """Function for creating the database tables"""
     cur = connect.cursor()
     for query in create_tables:
         cur.execute(query)
@@ -83,6 +88,7 @@ def create_db(connect):
 
 
 def admin(connect):
+    """Function for posting the admin on startup"""
     cur = connect.cursor()
     query = """SELECT  * FROM users WHERE username = 'eric';"""
     cur.execute(query)
@@ -92,4 +98,3 @@ def admin(connect):
         VALUES ('Eric', 'Maina', 'eric', 'admin@hotmail.com', '{}', True)\
         """.format(generate_password_hash('Eric1234')))
     connect.commit()
-    
