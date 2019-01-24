@@ -71,3 +71,6 @@ class TestQuestioner(unittest.TestCase):
         self.user_login = {"username": "eric","password":"Erick13"}
         response = self.client.post('/api/v2/auth/login', data=json.dumps(self.user_login), content_type = 'application/json')
         self.assertEqual(response.status_code, 400)
+
+
+        

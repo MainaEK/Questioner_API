@@ -18,8 +18,7 @@ class TestQuestioner(unittest.TestCase):
         token = auth.json['data'][0]['token']
         self.headers = {"Content-Type": "application/json"}
         self.headers['Authorization'] = 'Bearer {}'.format(token)
-        self.questions = {"q_id":1,"created_on" : "2000-01-01", "created_by":"1", "meetup":"1",
-                 "title":"Posting in Python", "body":"How?", "votes": 3}
+        self.questions = {"title":"Posting in Python", "body":"How?"}
      
     def test_post_question(self):
         """ Test posting a question."""
@@ -39,8 +38,7 @@ class TestQuestioner(unittest.TestCase):
 
     def test_post_question_empty_fields(self):
         """ Test posting a question with empty required fields"""
-        self.questions = {"q_id":1,"created_on" : "2000-01-01", "created_by":"1", "meetup":"1",
-                 "title":"Posting in Python", "body":"", "votes": 3}
+        self.questions = {"title":"Posting in Python", "body":""}
         response = self.client.post('/api/v2/meetups/1/questions', data=json.dumps(self.questions), headers = self.headers)
         self.assertEqual(response.status_code, 400)
 
@@ -76,4 +74,7 @@ class TestQuestioner(unittest.TestCase):
         """ Test upvoting to an invalid question."""
         self.client.post('/api/v2/meetups/1/questions', data=json.dumps(self.questions), headers = self.headers)
         response = self.client.patch('/api/v2/questions/200/upvote', data=json.dumps(self.questions), headers = self.headers)
-        self.assertEqual(response.status_code, 404)  
+        self.assertEqual(response.status_code, 404) 
+
+        
+         
