@@ -11,5 +11,6 @@ class UserSchema(Schema):
     email = fields.Email(required=True, validate= Not_null_string)
     phone_number = fields.Int(required=True)
     username = fields.Str(required=True)
-    registered_on = fields.Date(required=True, validate= Not_null_string)
     password= fields.Str(required=True, validate= password_check)
+
+    
