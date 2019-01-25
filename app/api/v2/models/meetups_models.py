@@ -8,7 +8,7 @@ class MeetupModel(BaseModels):
     """
     This class encapsulates the functions of the meetup model
     """
-    
+
     def __init__(self):
         """Initialize the database"""
         super().__init__('meetups')

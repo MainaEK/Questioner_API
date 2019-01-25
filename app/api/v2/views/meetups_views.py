@@ -82,7 +82,7 @@ def delete_meetup(m_id):
     '''If the meetup exists it is then deleted and feedback returned '''
     MeetupModel().delete(m_id)
     if not MeetupModel().check_exists("meetup_id", m_id):
-        return jsonify({'status': 200, 'data' : [], 'message': 'Meetup successfully deleted'}), 200
+        return jsonify({'status': 200, 'data': [], 'message': 'Meetup successfully deleted'}), 200
 
 
 @v2.route('/meetups/<int:m_id>/<string:rsvp>', methods=['POST'])

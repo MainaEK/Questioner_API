@@ -10,7 +10,8 @@ def Not_null_string(value):
 
     if isinstance(value, str):
         if not value.strip(' '):
-            raise ValidationError('Sorry but this parameter cannot be null. Please fill in')
+            raise ValidationError(
+                'Sorry but this parameter cannot be null. Please fill in')
         return value
     elif value:
         return value

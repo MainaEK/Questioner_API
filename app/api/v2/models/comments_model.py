@@ -9,7 +9,7 @@ class CommentsModel(BaseModels):
     """
     This class encapsulates the functions of the comments model
     """
-    
+
     def __init__(self):
         """Initialize the database"""
         super().__init__('comments')
@@ -40,4 +40,3 @@ class CommentsModel(BaseModels):
         self.cur.execute(query)
         result = self.cur.fetchall()
         return len(result) > 0
-

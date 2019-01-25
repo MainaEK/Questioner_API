@@ -51,7 +51,7 @@ def create_app(config_name):
     def internal_server_error(error):
         return jsonify({
             'status': 500,
-            'message': 'Your request could not be processed'
+            'message': 'Sorry but your request could not be processed'
         }), 500
 
     return app

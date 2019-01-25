@@ -8,7 +8,7 @@ class QuestionModel(BaseModels):
     """
     This class encapsulates the functions of the questions model
     """
-    
+
     def __init__(self):
         """Initialize the database"""
         super().__init__('questions')

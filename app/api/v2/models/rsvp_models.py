@@ -8,7 +8,7 @@ class RsvpModel(BaseModels):
     """
     This class encapsulates the functions of the rsvp model
     """
-    
+
     def __init__(self):
         """Initialize database"""
         super().__init__('rsvps')
