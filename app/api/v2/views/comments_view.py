@@ -35,6 +35,12 @@ def create_comments(q_id):
         abort(make_response(
             jsonify({'status': 404, 'message': 'Sorry but this question does not exist'}), 404))
 
+    '''Checks if a similar comment exists'''
+    user_id = get_jwt_identity()
+    if CommentsModel().check_similar_comment(user_id, q_id, json_data['comment']):
+        abort(make_response(
+            jsonify({'status': 400, 'message': 'Similar comment found from the same user to the same question'}), 400))
+
     """ Creates the meetup and returns feedback in json format"""
     user_id = get_jwt_identity()
     result = CommentsModel().create_comment(user_id, q_id, json_data)

@@ -63,4 +63,4 @@ def downvote_question(q_id):
 
     """Downvotes the question and returns feedback in json format"""
     question = QuestionModel().downvote(q_id)
-    return jsonify({'status': 200, 'message': 'Question upvoted successfully', 'data': question}), 200
+    return jsonify({'status': 200, 'message': 'Question downvoted successfully', 'data': question}), 200

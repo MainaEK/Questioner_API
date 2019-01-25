@@ -29,3 +29,15 @@ class CommentsModel(BaseModels):
         self.connect.commit()
         result = self.cur.fetchone()
         return result
+
+    def check_similar_comment(self, user_id, q_id, comment):
+        """Function to check for similar meetups 
+        already in the database
+        """
+        self.cur = self.connect.cursor()
+        query = """SELECT * FROM comments WHERE user_id = {} AND question_id = {} AND comment = '{}';""".format(
+            user_id, q_id, comment)
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return len(result) > 0
+
