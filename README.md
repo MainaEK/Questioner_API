@@ -1,8 +1,8 @@
 # Questioner_API
 
-[![Build Status](https://travis-ci.org/erick-maina/Questioner_API.svg?branch=develop)](https://travis-ci.com/erick-maina/Questioner_API)
-[![Coverage Status](https://coveralls.io/repos/github/erick-maina/Questioner_API/badge.svg?branch=develop)](https://coveralls.io/github/erick-maina/Questioner_API?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/eec9837dfd5cf2c5312e/maintainability)](https://codeclimate.com/github/erick-maina/Questioner-API/maintainability)
+[![Build Status](https://travis-ci.org/erick-maina/Questioner_API.svg?branch=developv2)](https://travis-ci.com/erick-maina/Questioner_API)
+[![Coverage Status](https://coveralls.io/repos/github/erick-maina/Questioner_API/badge.svg?branch=developv2)](https://coveralls.io/github/erick-maina/Questioner_API?branch=developv2)
+[![Maintainability](https://api.codeclimate.com/v2/badges/eec9837dfd5cf2c5312e/maintainability)](https://codeclimate.com/github/erick-maina/Questioner-API/maintainability)
 
 A questioner is a platform for crowd-sourcing questions for a meetup. It helps the meetup organizer prioritize  questions to be answered. Other users can vote on asked questions and they bubble to the top  or bottom of the log.
 
@@ -53,19 +53,17 @@ A questioner is a platform for crowd-sourcing questions for a meetup. It helps t
 
 | Endpoint                             | HTTP Verb   | Functionality           |
 | ------------------------------------ | ----------- | ----------------------- |    
-| /api/v1/meetups                  | POST        | Create a meetup record       |
-| /api/v1/meetups/<meetup_id>           | GET         | Fetch a specific meetup record |
-| /api/v1/meetups/<meetup_id>           | DELETE         | Deleting a specific meetup record |
-| /api/v1/meeetups/upcoming           | GET         | Fetch all upcoming meetup records       |
-| /api/v1/meetups/<meetup_id>/rsvps    | POST        | Create a rsvp for a specific meetup   |
-| /api/v1/meetups/<meetup_id>/tags                  | POST        | Posting a tag to a meetup      |
-| /api/v1/meetups/<meetup_id>/images                  | POST        | Posting an image to a meetup  |
-| /api/v1/questions                | POST        | Create a question for a specific meetup   |
-| /api/v1/questions/<question_id>/upvote| PATCH       | Up-vote a specific question       |
-| /api/v1/questions/<question_id>/downvote| PATCH       | Down-vote a specific question       |
-| /api/v1/comments  | POST        | Making a comment on a question   |
-| /api/v1/auth/signup                  | POST        | Create a user      |
-| /api/v1/auth/login                  | POST        | Login a user      |
+| /api/v2/meetups                  | POST        | Create a meetup record       |
+| /api/v2/meetups/<meetup_id>           | GET         | Fetch a specific meetup record |
+| /api/v2/meetups/<meetup_id>           | DELETE         | Deleting a specific meetup record |
+| /api/v2/meeetups/upcoming           | GET         | Fetch all upcoming meetup records       |
+| /api/v2/meetups/<meetup_id>/rsvps    | POST        | Create a rsvp for a specific meetup   |
+| /api/v2/meetups/<meetup_id>/questions    | POST        | Create a question for a specific meetup   |
+| /api/v2/questions/<question_id>/upvote| PATCH       | Up-vote a specific question       |
+| /api/v2/questions/<question_id>/downvote| PATCH       | Down-vote a specific question       |
+| /api/v2/questions/<question_id>/comments  | POST        | Making a comment on a question   |
+| /api/v2/auth/signup                  | POST        | Create a user      |
+| /api/v2/auth/login                  | POST        | Login a user      |
 
 
 ## Authors
