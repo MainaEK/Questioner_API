@@ -19,7 +19,6 @@ class UserModel(BaseModels):
         """
         Function to check for similar email or username already registered
         """
-        self.cur = self.connect.cursor()
         query = """SELECT * FROM users WHERE {} = '{}';""".format(key, value)
         self.cur.execute(query)
         result = self.cur.fetchall()
@@ -29,20 +28,18 @@ class UserModel(BaseModels):
         """
         Function to find a particular user and return data about them
         """
-        self.cur = self.connect.cursor()
-        query = """SELECT json_build_object('user_id',user_id,'firstname',firstname,'lastname',lastname,'email',email,'username', username,'password',password) 
-                FROM ( SELECT user_id,firstname,lastname,email,username,password FROM users WHERE username = '{}') AS found;""".format(value)
+        query = """SELECT user_id,firstname,lastname,email,username,password FROM users WHERE username = '{}';""".format(value)
         self.cur.execute(query)
         result = self.cur.fetchone()
+        print(result)
         return result
 
     def create_user(self, user):
         """Function to create a new user"""
-        self.cur = self.connect.cursor()
         password = generate_password_hash(user['password'])
         query = """INSERT INTO users (firstname,lastname,othername,email,phone_number,username,password)\
         VALUES ('{}','{}','{}','{}','{}','{}','{}')\
-        RETURNING json_build_object('user_id',user_id,'firstname',firstname,'lastname',lastname,'email',email,'phone_number',phone_number,'username', username)
+        RETURNING user_id,firstname,lastname,email,phone_number,username
         ;""".format(user['firstname'], user['lastname'], user['othername'], user['email'], user['phone_number'], user['username'], password)
         self.cur.execute(query)
         self.connect.commit()
