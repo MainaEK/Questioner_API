@@ -19,11 +19,9 @@ class CommentsModel(BaseModels):
         Function that creates a comment and posts it to a certain question(q_id) 
         tied to a particular user(user_id)
         """
-        self.cur = self.connect.cursor()
         query = """WITH inserted AS (INSERT INTO comments (comment,question_id,user_id)\
         VALUES ('{}','{}','{}') RETURNING comment,question_id)\
-        SELECT json_build_object('question_id', question_id,'title', title,'body', body,'comment',comment)\
-        FROM (SELECT inserted.comment, questions.question_id, questions.title, questions.body FROM inserted INNER JOIN questions ON inserted.question_id = questions.question_id) AS returned
+        SELECT inserted.comment, questions.question_id, questions.title, questions.body FROM inserted INNER JOIN questions ON inserted.question_id = questions.question_id
         ;""".format(comment['comment'], q_id, user_id)
         self.cur.execute(query)
         self.connect.commit()
@@ -34,9 +32,8 @@ class CommentsModel(BaseModels):
         """Function to check for similar meetups 
         already in the database
         """
-        self.cur = self.connect.cursor()
-        query = """SELECT * FROM comments WHERE user_id = {} AND question_id = {} AND comment = '{}';""".format(
-            user_id, q_id, comment)
+        query = """SELECT * FROM comments WHERE user_id = {} AND question_id = {} AND comment = '{}'
+        ;""".format(user_id, q_id, comment)
         self.cur.execute(query)
         result = self.cur.fetchall()
         return len(result) > 0

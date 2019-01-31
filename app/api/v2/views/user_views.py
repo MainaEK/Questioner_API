@@ -44,7 +44,7 @@ def create_user():
 
     """Registers the new user and automatically logs them in"""
     result = UserModel().create_user(json_data)
-    access_token = create_access_token(identity=result[0]['user_id'])
+    access_token = create_access_token(identity=result['user_id'])
     return jsonify({'status': 201, 'data': [{'token': access_token, 'user': result}]}), 201
 
 
@@ -65,12 +65,12 @@ def login():
 
     """Checks if the password is correct"""
     response = UserModel().find(json_data['username'])
-    if not check_password_hash(response[0]['password'], json_data['password']):
+    if not check_password_hash(response['password'], json_data['password']):
         abort(make_response(
             jsonify({'status': 400, 'message': 'Incorrect password'}), 400))
 
         """Logs in the user"""
     else:
-        access_token = create_access_token(identity=response[0]['user_id'])
+        access_token = create_access_token(identity=response['user_id'])
 
         return jsonify({'status': 200, 'data': [{'token': access_token, 'user': response}]}), 200

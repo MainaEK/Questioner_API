@@ -2,7 +2,9 @@
 This module defines the base model and associated functions
 """
 from flask import Flask, jsonify
+from psycopg2.extras import RealDictCursor
 from ....database import db_con
+
 
 
 class BaseModels(object):
@@ -15,12 +17,12 @@ class BaseModels(object):
         """Initializes the database"""
         self.table = tablename
         self.connect = db_con()
+        self.cur = self.connect.cursor(cursor_factory=RealDictCursor)
 
     def check_exists(self, key, value):
         """Checks where a particular item exists within the
         database given the table name, column name(key) and 
         the value to be checked"""
-        self.cur = self.connect.cursor()
         query = """SELECT * FROM {} WHERE {} = {};""".format(
             self.table, key, value)
         self.cur.execute(query)
